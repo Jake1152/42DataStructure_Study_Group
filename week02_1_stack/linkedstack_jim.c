@@ -56,11 +56,13 @@ int pushLS(LinkedStack* pStack, StackNode element)
 	StackNode*	newStackNode;
 
 	if (pStack == NULL)
-		return (NULL);
+		return (FALSE);
 	newStackNode = (StackNode *)malloc(sizeof(newStackNode));
 	if (newStackNode == NULL)
 		return (NULL);
-	newStackNode->data = element;
+	newStackNode->data = element.data;
+	newStackNode->pLink = pStack->pTopElement;
+	pStack->pTopElement = newStackNode;
 	pStack->currentElementCount += 1;
 
 	return (pStack->currentElementCount);
@@ -68,7 +70,18 @@ int pushLS(LinkedStack* pStack, StackNode element)
 
 StackNode* popLS(LinkedStack* pStack)
 {
+	/*
+		pop 된 노드의 free는 밖에서 해준다.
+	*/
+	StackNode*	retStackNode;
 
+	if (pStack == NULL)
+		return (FALSE);	
+	retStackNode = pStack->pTopElement;
+	pStack->pTopElement = pStack->pTopElement->pLink;
+	pStack->currentElementCount -= 1;
+
+	return (retStackNode);
 }
 
 void deleteLinkedStack(LinkedStack* pStack)
@@ -76,5 +89,7 @@ void deleteLinkedStack(LinkedStack* pStack)
 	/*
 		각 노드 하나씩 pop하고서 free
 	*/
+	while(pStack)
+		free(popLS(pStack));
 	free(pStack);
 }
