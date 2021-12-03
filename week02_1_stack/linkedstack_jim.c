@@ -93,3 +93,15 @@ void deleteLinkedStack(LinkedStack* pStack)
 		free(popLS(pStack));
 	free(pStack);
 }
+
+bool isEmpty(LinkedStack *pStack)
+{
+	if (pStack == NULL)
+	{
+		printf("There are no stack");
+		return (FALSE);
+	}		
+	if (pStack->currentElementCount == 0)
+		return (TRUE);	
+	return (FALSE);
+}

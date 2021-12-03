@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "arraystack.h"
+#include "arraystack_jim.h"
 
 ArrayStack* createArrayStack(int maxElementCount)
 {
